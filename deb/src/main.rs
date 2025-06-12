@@ -43,10 +43,25 @@ fn main() {
     println!("{}",validar(resultado));
 
     let s1 = String::from("Hola");
-    let s2 = s1;
+    let s2 = s1.clone(); // ahora s1 y s2 son independientes
 
-    //println!("{}", s1); // ❌ ERROR: `s1` ya no es válido
+    // let s2 = s1;
+
+    // move
+    println!("{}", s1); // ❌ ERROR: `s1` ya no es válido
     println!("{}", s2); // ✅ OK
+
+    // borrowing 
+    let s3= String::from("Hola");
+
+    let len = calcular_longitud(&s3); // prestamos s1
+    println!("La longitud de '{}' es {}", s3, len); // ✅ OK
+
+
+    let mut s = String::from("Hola");
+    cambiar(&mut s);
+    println!("{}", s); // ✅ Muestra "Hola, mundo"
+    
 
 }
 
@@ -58,6 +73,13 @@ fn validar(a: i32) -> i32 {
     a + 1 
 }
 
+fn calcular_longitud(s: &String) -> usize {
+    s.len()
+}
+
+fn cambiar(s: &mut String) {
+    s.push_str(", mundo");
+}
 
 //i32 — entero con signo de 32 bits
 //u32 — entero sin signo
